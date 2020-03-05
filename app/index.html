@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My PlaceFinder</title>
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-i18n/angular-locale_en.js"></script>
+    <script src="app.js"></script>
+    <script src="data-access/app.data.service.js"></script>
+    <script src="constants/constants.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+<body ng-controller="placeFinderController">
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Place Finder</a>
+    </nav>
+    <form name="searchForm" class="container form-style">
+            <div class="alert alert-danger alert-dismissible fade show col-sm-6" ng-if="errorNotification">
+                <strong>Error! </strong>Sorry we are not available at the moment..!!
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show col-sm-6" ng-if="errorValidation">
+                <strong>Warning! </strong>Sorry we cannot search places if you don't enter anything.
+            </div>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">Please select one </legend>
+                <div class="col-sm-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" ng-model="isDisabled" ng-value="false" ng-change="placeName=undefined">
+                        <label class="form-check-label">
+                            search with coordinates
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" ng-model="isDisabled" ng-value="true" ng-change="longitude=undefined;latitude=undefined;">
+                        <label class="form-check-label">
+                            search with city
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Longitude:</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" name="longitude" ng-model="longitude" ng-disabled="isDisabled"
+                       ng-trim="false" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Latitude:</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" name="latitude" ng-model="latitude" ng-disabled="isDisabled"
+                       ng-trim="false" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Place Name:</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" name="place" ng-model="placeName" ng-disabled="!isDisabled"
+                       ng-trim="false" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Category:</label>
+            <div class="col-sm-3">
+                <select class="form-control" ng-model="selectedCategory" ng-init="selectedCategory=categories[0].id">
+                    <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Radius: {{radius}}m</label>
+            <div class="col-sm-3">
+                <input type="range" min="100" max="500" value="250" class="form-control" ng-model="radius" id="radius">
+            </div>
+
+        </div>
+        <button class="btn btn-success" name="submit" type="button" value="Submit" ng-click="getPlaces()" >Submit</button>
+    </form>
+</div>
+<hr>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <label class="navbar-brand">Results</label>
+</nav>
+<div class="container-fluid" ng-repeat="venue in venues">
+    <div>
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <label class="col-sm-2 col-form-label font-weight-bold">{{venue.name}}</label>
+        <div>
+        <label class="col-sm-2 col-form-label" ng-if="venue.location.address">{{venue.location.address}}</label>
+        <label class="col-sm-2 col-form-label font-weight-bold" ng-if="venue.location.distance">{{venue.location.distance}}m</label>
+            </div>
+            <hr>
+    </div>
+</div>
+</body>
+</html>
