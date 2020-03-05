@@ -5,11 +5,11 @@ This is a project which help you to find places nearby your mentioned location. 
 
 ## Getting Started
 
-To get you started you can simply clone the `PlaceFinder` repository and install the dependencies:
+To get you started you can simply clone the `placefinder` repository and install the dependencies:
 
 ### Prerequisites
 
-You need git to clone the `PlaceFinder` repository.
+You need git to clone the `placefinder` repository.
 You must have Node.js and its package manager (npm) installed.
 
 ### Clone `PlaceFinder`
@@ -17,8 +17,8 @@ You must have Node.js and its package manager (npm) installed.
 Clone the `PlaceFinder` repository using git:
 
 ```
-git clone https://github.com/angular/PlaceFinder.git
-cd PlaceFinder
+git clone https://github.com/pranay-gore/placefinder.git
+cd placefinder
 ```
 ### Install Dependencies
 
@@ -48,5 +48,5 @@ this server is:
 npm start
 ```
 
-Now browse to the app at [`localhost:8000/index.html`]
+Now browse to the app at [`localhost:8010/index.html`]
 
